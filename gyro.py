@@ -86,7 +86,7 @@ while True:
     accel_x.append(accel_xout_scaled)
     accel_y.append(accel_yout_scaled)
     accel_z.append(accel_zout_scaled)
-    if len(accel_x) > 100:
+    if len(accel_x) > 10:
         accel_x.pop(0)
         accel_y.pop(0)
         accel_z.pop(0)
