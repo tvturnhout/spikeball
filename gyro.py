@@ -72,3 +72,15 @@ print "accel_zout: ", accel_zout, " scaled: ", accel_zout_scaled
 
 print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.axis([0, 10, 0, 1])
+
+for i in range(10):
+    y = np.random.random()
+    plt.scatter(i, y)
+    plt.pause(0.05)
+
+plt.show()
