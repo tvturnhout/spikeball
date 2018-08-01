@@ -42,7 +42,7 @@ address = 0x68       # This is the address value read via the i2cdetect command
 
 # Now wake the 6050 up as it starts in sleep mode
 bus.write_byte_data(address, power_mgmt_1, 0)
-
+"""
 print "gyro data"
 print "---------"
 
@@ -57,7 +57,7 @@ print "gyro_zout: ", gyro_zout, " scaled: ", (gyro_zout / 131)
 print
 print "accelerometer data"
 print "------------------"
-
+"""
 accel_xout = read_word_2c(0x3b)
 accel_yout = read_word_2c(0x3d)
 accel_zout = read_word_2c(0x3f)
@@ -65,22 +65,35 @@ accel_zout = read_word_2c(0x3f)
 accel_xout_scaled = accel_xout / 16384.0
 accel_yout_scaled = accel_yout / 16384.0
 accel_zout_scaled = accel_zout / 16384.0
-
+"""
 print "accel_xout: ", accel_xout, " scaled: ", accel_xout_scaled
 print "accel_yout: ", accel_yout, " scaled: ", accel_yout_scaled
 print "accel_zout: ", accel_zout, " scaled: ", accel_zout_scaled
 
 print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
-
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 
 plt.axis([0, 10, 0, 1])
 
-for i in range(10):
-    y = np.random.random()
-    plt.scatter(i, y)
+accel_x = []
+accel_y = []
+accel_z = []
+
+while True:
+    accel_x.append(accel_xout_scaled)
+    accel_y.append(accel_yout_scaled)
+    accel_z.append(accel_zout_scaled)
+    if len(accel_x) > 100:
+        accel_x.pop(0)
+        accel_y.pop(0)
+        accel_z.pop(0)
+    plt.plot(accel_x,c='red',label='accel_x')
+    plt.plot(accel_y,c='blue',label='accel_y')
+    plt.plot(accel_z,c='green',label='accel_z')
     plt.pause(0.05)
+    plt.gcf().clear()
 
 plt.show()
