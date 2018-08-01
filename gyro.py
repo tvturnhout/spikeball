@@ -83,6 +83,13 @@ accel_y = []
 accel_z = []
 
 while True:
+    accel_xout = read_word_2c(0x3b)
+    accel_yout = read_word_2c(0x3d)
+    accel_zout = read_word_2c(0x3f)
+
+    accel_xout_scaled = accel_xout / 16384.0
+    accel_yout_scaled = accel_yout / 16384.0
+    accel_zout_scaled = accel_zout / 16384.0
     accel_x.append(accel_xout_scaled)
     accel_y.append(accel_yout_scaled)
     accel_z.append(accel_zout_scaled)
