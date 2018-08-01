@@ -83,24 +83,27 @@ accel_y = []
 accel_z = []
 
 while True:
-    accel_xout = read_word_2c(0x3b)
-    accel_yout = read_word_2c(0x3d)
-    accel_zout = read_word_2c(0x3f)
+    try:
+        accel_xout = read_word_2c(0x3b)
+        accel_yout = read_word_2c(0x3d)
+        accel_zout = read_word_2c(0x3f)
 
-    accel_xout_scaled = accel_xout / 16384.0
-    accel_yout_scaled = accel_yout / 16384.0
-    accel_zout_scaled = accel_zout / 16384.0
-    accel_x.append(accel_xout_scaled)
-    accel_y.append(accel_yout_scaled)
-    accel_z.append(accel_zout_scaled)
-    if len(accel_x) > 10:
-        accel_x.pop(0)
-        accel_y.pop(0)
-        accel_z.pop(0)
-    plt.plot(accel_x,c='red',label='accel_x')
-    plt.plot(accel_y,c='blue',label='accel_y')
-    plt.plot(accel_z,c='green',label='accel_z')
-    plt.pause(0.05)
-    plt.gcf().clear()
+        accel_xout_scaled = accel_xout / 16384.0
+        accel_yout_scaled = accel_yout / 16384.0
+        accel_zout_scaled = accel_zout / 16384.0
+        accel_x.append(accel_xout_scaled)
+        accel_y.append(accel_yout_scaled)
+        accel_z.append(accel_zout_scaled)
+        if len(accel_x) > 10:
+            accel_x.pop(0)
+            accel_y.pop(0)
+            accel_z.pop(0)
+        plt.plot(accel_x,c='red',label='accel_x')
+        plt.plot(accel_y,c='blue',label='accel_y')
+        plt.plot(accel_z,c='green',label='accel_z')
+        plt.pause(0.05)
+        plt.gcf().clear()
+    except:
+        pass
 
 plt.show()
