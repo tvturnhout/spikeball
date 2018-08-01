@@ -74,11 +74,14 @@ print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, acce
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 """
 while True:
-    accel_xout = read_word_2c(0x3b)
-    accel_yout = read_word_2c(0x3d)
-    accel_zout = read_word_2c(0x3f)
+    try:
+        accel_xout = read_word_2c(0x3b)
+        accel_yout = read_word_2c(0x3d)
+        accel_zout = read_word_2c(0x3f)
 
-    accel_xout_scaled = accel_xout / 16384.0
-    accel_yout_scaled = accel_yout / 16384.0
-    accel_zout_scaled = accel_zout / 16384.0
-    print str(round(accel_xout_scaled)) + " / " + str(round(accel_yout_scaled)) + " / " + str(round(accel_zout_scaled))
+        accel_xout_scaled = accel_xout / 16384.0
+        accel_yout_scaled = accel_yout / 16384.0
+        accel_zout_scaled = accel_zout / 16384.0
+        print str(round(accel_xout_scaled, 4)) + " / " + str(round(accel_yout_scaled, 4)) + " / " + str(round(accel_zout_scaled, 4))
+    except:
+        pass

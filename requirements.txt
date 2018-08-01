@@ -1,2 +1,4 @@
 matplotlib
 numpy
+cairocffi
+sudo apt-get install libatlas3-base libffi-dev at-spi2-core python3-gi-cairo
