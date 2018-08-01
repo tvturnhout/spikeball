@@ -81,4 +81,4 @@ while True:
     accel_xout_scaled = accel_xout / 16384.0
     accel_yout_scaled = accel_yout / 16384.0
     accel_zout_scaled = accel_zout / 16384.0
-    print str(accel_xout_scaled) + " / " + str(accel_yout_scaled) + " / " + str(accel_zout_scaled)
+    print str(round(accel_xout_scaled)) + " / " + str(round(accel_yout_scaled)) + " / " + str(round(accel_zout_scaled))
