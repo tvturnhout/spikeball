@@ -93,6 +93,7 @@ while True:
     measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
 
     event_list.append( measurement )
+    print len(event_list)
     if len(event_list) > logging_memory:
         max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
         if max_value > logging_treshold:
