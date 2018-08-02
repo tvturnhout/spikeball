@@ -75,37 +75,30 @@ print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, acce
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 """
 
-logging_memory = 1000
+logging_memory = 2
 logging_treshold = 0.3
 event_width = 0
 
 event_list = []
 
-while True:
-    try:
-        accel_xout = read_word_2c(0x3b)
-        accel_yout = read_word_2c(0x3d)
-        accel_zout = read_word_2c(0x3f)
+accel_xout = read_word_2c(0x3b)
+accel_yout = read_word_2c(0x3d)
+accel_zout = read_word_2c(0x3f)
 
-        accel_xout_scaled = accel_xout / 16384.0
-        accel_yout_scaled = accel_yout / 16384.0
-        accel_zout_scaled = accel_zout / 16384.0
-        #print str(round(accel_xout_scaled, 4)) + " / " + str(round(accel_yout_scaled, 4)) + " / " + str(round(accel_zout_scaled, 4))
-        measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
+accel_xout_scaled = accel_xout / 16384.0
+accel_yout_scaled = accel_yout / 16384.0
+accel_zout_scaled = accel_zout / 16384.0
+#print str(round(accel_xout_scaled, 4)) + " / " + str(round(accel_yout_scaled, 4)) + " / " + str(round(accel_zout_scaled, 4))
+measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
 
-        event_list.append( measurement )
-        if len(event_list) > logging_memory:
-            max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
-            if max_value > logging_treshold:
-                try:
-                    with open('events.txt','a') as f:
-                        f.write(event_list[max_index-event_width:max_index+event_width])
-                    print "succesfully wrote event"
-                except:
-                    print "unlucky, sensor or memory malfunction"
-                    pass
-            else:
-                print "no recordings, max value " + str(max_value)
-            event_list[:] = []
-    except:
-        pass
+event_list.append( measurement )
+if len(event_list) > logging_memory:
+    max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
+    if max_value > logging_treshold:
+        with open('events.txt','w') as f:
+            for item in event_list[max(max_index-event_width,0):max_index+event_width+1]:
+                f.write(str(item) + ",")
+        print "succesfully wrote event "
+    else:
+        print "no recordings, max value " + str(max_value)
+    event_list[:] = []
