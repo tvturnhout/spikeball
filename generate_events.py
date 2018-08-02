@@ -92,7 +92,7 @@ for i in range(0,100):
 
 average_log = sum(build_list) / len(build_list)  
 
-logging_memory = 5000
+logging_memory = 1000
 logging_treshold = average_log * 1.1
 event_width = 5
 
@@ -116,7 +116,7 @@ while True:
             decision = raw_input("Rand (r) of net (n): ")
             with open('events.txt','a') as f:
                 f.write("\n")
-                for item in event_list[max(max_index-event_width,0):max_index+event_width+1]:
+                for item in event_list[max(max_index-event_width,0):min(max_index+event_width+1,len(event_list))]:
                     f.write(str(item) + ",")
                 f.write(decision)
             print "succesfully wrote event "
