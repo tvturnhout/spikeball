@@ -92,7 +92,7 @@ for i in range(0,100):
 
 average_log = sum(build_list) / len(build_list)  
 
-logging_memory = 1000
+logging_memory = 5000
 logging_treshold = average_log * 1.1
 event_width = 5
 
