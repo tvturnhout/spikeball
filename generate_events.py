@@ -101,6 +101,8 @@ while True:
                 except:
                     print "unlucky, sensor or memory malfunction"
                     pass
+            else:
+                print "no recordings, max value " + str(max_value)
             event_list[:] = []
     except:
         pass
