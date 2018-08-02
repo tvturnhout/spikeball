@@ -90,7 +90,9 @@ while True:
     accel_yout_scaled = accel_yout / 16384.0
     accel_zout_scaled = accel_zout / 16384.0
     #print str(round(accel_xout_scaled, 4)) + " / " + str(round(accel_yout_scaled, 4)) + " / " + str(round(accel_zout_scaled, 4))
-    event_list.append( (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3 )
+    measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
+    print measurement
+    event_list.append( measurement )
     if len(event_list) > logging_memory:
         max_index, max_value = max(enumerate(values), key=operator.itemgetter(1))
         if max_value > logging_treshold:
