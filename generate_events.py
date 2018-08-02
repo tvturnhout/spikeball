@@ -95,9 +95,11 @@ event_list.append( measurement )
 if len(event_list) > logging_memory:
     max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
     if max_value > logging_treshold:
+        decision = input("Rand (r) of net (n)")
         with open('events.txt','w') as f:
             for item in event_list[max(max_index-event_width,0):max_index+event_width+1]:
                 f.write(str(item) + ",")
+            f.write(decision)
         print "succesfully wrote event "
     else:
         print "no recordings, max value " + str(max_value)
