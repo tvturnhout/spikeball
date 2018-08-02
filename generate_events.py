@@ -75,7 +75,7 @@ print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, acce
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 """
 
-logging_memory = 10000
+logging_memory = 1000
 logging_treshold = 0.4
 event_width = 10
 
@@ -91,14 +91,14 @@ while True:
     accel_zout_scaled = accel_zout / 16384.0
     #print str(round(accel_xout_scaled, 4)) + " / " + str(round(accel_yout_scaled, 4)) + " / " + str(round(accel_zout_scaled, 4))
     measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
-    print measurement
+
     event_list.append( measurement )
     if len(event_list) > logging_memory:
         max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
         if max_value > logging_treshold:
             try:
                 with open('events.txt','a') as f:
-                    f.write(event_list[100-event_width:100+event_width])
+                    f.write(event_list[max_index-event_width:max_index+event_width])
                 print "succesfully wrote event"
             except:
                 print "unlucky, sensor or memory malfunction"
