@@ -115,6 +115,7 @@ while True:
         if max_value > logging_treshold:
             decision = raw_input("Rand (r) of net (n): ")
             with open('events.txt','a') as f:
+                f.write("\n")
                 for item in event_list[max(max_index-event_width,0):max_index+event_width+1]:
                     f.write(str(item) + ",")
                 f.write(decision)
