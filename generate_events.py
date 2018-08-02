@@ -75,8 +75,25 @@ print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, acce
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 """
 
+# Set logging treshold:
+build_list = []
+
+for i in range(0,100):
+    accel_xout = read_word_2c(0x3b)
+    accel_yout = read_word_2c(0x3d)
+    accel_zout = read_word_2c(0x3f)
+
+    accel_xout_scaled = accel_xout / 16384.0
+    accel_yout_scaled = accel_yout / 16384.0
+    accel_zout_scaled = accel_zout / 16384.0
+    measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
+
+    build_list.append( measurement ) 
+
+average_log = sum(build_list) / len(build_list)  
+
 logging_memory = 1000
-logging_treshold = 0.2
+logging_treshold = average_log * 1.1
 event_width = 5
 
 event_list = []
@@ -97,7 +114,7 @@ while True:
         max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
         if max_value > logging_treshold:
             decision = raw_input("Rand (r) of net (n): ")
-            with open('events.txt','w') as f:
+            with open('events.txt','a') as f:
                 for item in event_list[max(max_index-event_width,0):max_index+event_width+1]:
                     f.write(str(item) + ",")
                 f.write(decision)
