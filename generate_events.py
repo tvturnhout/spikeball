@@ -93,7 +93,7 @@ while True:
         event_list.append( (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3 )
         if len(event_list) > logging_memory:
             max_index, max_value = max(enumerate(values), key=operator.itemgetter(1))
-            if max_value > 0.4:
+            if max_value > logging_treshold:
                 try:
                     with open('events.txt','a') as f:
                         f.write(event_list[100-event_width:100+event_width])
