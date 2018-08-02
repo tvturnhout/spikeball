@@ -75,7 +75,7 @@ print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, acce
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 """
 
-logging_memory = 10000
+logging_memory = 100
 logging_treshold = 0.4
 event_width = 10
 
