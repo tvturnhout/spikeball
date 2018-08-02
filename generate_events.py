@@ -82,28 +82,30 @@ event_width = 0
 event_list = []
 
 while True:
-    
-    accel_xout = read_word_2c(0x3b)
-    accel_yout = read_word_2c(0x3d)
-    accel_zout = read_word_2c(0x3f)
+    try:
+        accel_xout = read_word_2c(0x3b)
+        accel_yout = read_word_2c(0x3d)
+        accel_zout = read_word_2c(0x3f)
 
-    accel_xout_scaled = accel_xout / 16384.0
-    accel_yout_scaled = accel_yout / 16384.0
-    accel_zout_scaled = accel_zout / 16384.0
-    #print str(round(accel_xout_scaled, 4)) + " / " + str(round(accel_yout_scaled, 4)) + " / " + str(round(accel_zout_scaled, 4))
-    measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
+        accel_xout_scaled = accel_xout / 16384.0
+        accel_yout_scaled = accel_yout / 16384.0
+        accel_zout_scaled = accel_zout / 16384.0
+        #print str(round(accel_xout_scaled, 4)) + " / " + str(round(accel_yout_scaled, 4)) + " / " + str(round(accel_zout_scaled, 4))
+        measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
 
-    event_list.append( measurement )
-    if len(event_list) > logging_memory:
-        max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
-        if max_value > logging_treshold:
-            try:
-                with open('events.txt','a') as f:
-                    f.write(event_list[max_index-event_width:max_index+event_width])
-                print "succesfully wrote event"
-            except:
-                print "unlucky, sensor or memory malfunction"
-                pass
-        else:
-            print "no recordings, max value " + str(max_value)
-        event_list[:] = []
+        event_list.append( measurement )
+        if len(event_list) > logging_memory:
+            max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
+            if max_value > logging_treshold:
+                try:
+                    with open('events.txt','a') as f:
+                        f.write(event_list[max_index-event_width:max_index+event_width])
+                    print "succesfully wrote event"
+                except:
+                    print "unlucky, sensor or memory malfunction"
+                    pass
+            else:
+                print "no recordings, max value " + str(max_value)
+            event_list[:] = []
+    except:
+        pass
