@@ -1,6 +1,6 @@
 from sklearn.linear_model import SGDClassifier
 import json
-import random
+from random import shuffle
 
 
 def make_float(raw):
@@ -16,6 +16,9 @@ data_new = []
 for item in data:
     data_new.append([make_float(s) for s in item.split(',')])
 
+# If you want to randomize training and testing
+shuffle(data_new)
+
 X = []
 y = []
 for item in data_new:
@@ -26,11 +29,8 @@ for item in data_new:
         y.append(1)
 
 
-X_test = random.sample(X, int(len(X)/3))
-y_test = random.sample(y, int(len(X)/3))
-## If you prefer non random testing:
-# X_test = X[::3]
-# y_test = y[::3]
+X_test = X[::3]
+y_test = y[::3]
 X_train = [item for item in X if item not in X_test]
 y_train = [item for item in y if item not in y_test]
 
