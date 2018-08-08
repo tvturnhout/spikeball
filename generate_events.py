@@ -115,7 +115,7 @@ while True:
         max_value = ( sorted(event_list)[-1] + sorted(event_list)[-2] + sorted(event_list)[-3] ) / 3
         if max_value > logging_treshold:
             decision = raw_input("Max value: " + str(max_value) + "/Treshold: " + str(logging_treshold) + " - Rand (r) of net (n): ")
-            if decision == 'r' or 'n':
+            if 'r' in or 'n' in decision:
                 with open('events.txt','a') as f:
                     f.write("\n")
                     for item in event_list[max(max_index-event_width,0):min(max_index+event_width+1,len(event_list))]:
