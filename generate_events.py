@@ -114,15 +114,14 @@ while True:
         max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
         if max_value > logging_treshold:
             decision = raw_input("Rand (r) of net (n): ")
-            print decision
             if decision == 'r' or 'n':
                 with open('events.txt','a') as f:
                     f.write("\n")
-                    for item in event_list[max(max_index-event_width,0):min(max_index+event_width+1,len(event_list))]:
-                        f.write(str(item) + ",")
-                    f.write(decision)
+                for item in event_list[max(max_index-event_width,0):min(max_index+event_width+1,len(event_list))]:
+                    f.write(str(item) + ",")
+                f.write(decision)
                 print "succesfully wrote event "
-            elif decision != 'r' or 'n':
+            else:
                 print "No (r) or (n) chosen, not saving this recording"
         else:
             print "no recordings, max value " + str(max_value)
