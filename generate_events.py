@@ -114,7 +114,7 @@ while True:
     if len(event_list) > logging_memory:
         max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
         max_value = ( sorted(event_list)[-1] + sorted(event_list)[-2] + sorted(event_list)[-3] ) / 3
-        if max_value > logging_treshold:
+        if abs(max_value) > abs(logging_treshold):
             decision = raw_input("Max value: " + str(max_value) + "/Treshold: " + str(logging_treshold) + " - Rand (r) of net (n): ")
             logging_treshold = reset()
             if 'r' in decision or 'n' in decision:
