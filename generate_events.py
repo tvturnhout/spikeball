@@ -93,7 +93,7 @@ for i in range(0,100):
 average_log = sum(build_list) / len(build_list)  
 
 logging_memory = 1000
-logging_treshold = average_log * 1.1
+logging_treshold = average_log * 1.2
 event_width = 5
 
 event_list = []
@@ -114,6 +114,7 @@ while True:
         max_index, max_value = max(enumerate(event_list), key=operator.itemgetter(1))
         if max_value > logging_treshold:
             decision = raw_input("Rand (r) of net (n): ")
+            print decision
             if decision == 'r' or 'n':
                 with open('events.txt','a') as f:
                     f.write("\n")
