@@ -121,7 +121,7 @@ while True:
                         f.write(str(item) + ",")
                     f.write(decision)
                 print "succesfully wrote event "
-            else:
+            elif decision != 'r' or 'n':
                 print "No (r) or (n) chosen, not saving this recording"
         else:
             print "no recordings, max value " + str(max_value)
