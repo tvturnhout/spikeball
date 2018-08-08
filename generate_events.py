@@ -79,7 +79,7 @@ def reset():
 # Set logging treshold:
     build_list = []
 
-    for i in range(0,500):
+    for i in range(0,250):
         accel_xout = read_word_2c(0x3b)
         accel_yout = read_word_2c(0x3d)
         accel_zout = read_word_2c(0x3f)
@@ -94,8 +94,8 @@ def reset():
     average_log = sum(build_list) / len(build_list)  
     return average_log * 1.2
 
-logging_memory = 1000
-event_width = 5
+logging_memory = 2000
+event_width = 30
 
 event_list = []
 logging_treshold = reset()
