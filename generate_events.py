@@ -75,30 +75,32 @@ print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, acce
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 """
 
+def reset():
 # Set logging treshold:
-build_list = []
+    build_list = []
 
-for i in range(0,2000):
-    accel_xout = read_word_2c(0x3b)
-    accel_yout = read_word_2c(0x3d)
-    accel_zout = read_word_2c(0x3f)
+    for i in range(0,1000):
+        accel_xout = read_word_2c(0x3b)
+        accel_yout = read_word_2c(0x3d)
+        accel_zout = read_word_2c(0x3f)
 
-    accel_xout_scaled = accel_xout / 16384.0
-    accel_yout_scaled = accel_yout / 16384.0
-    accel_zout_scaled = accel_zout / 16384.0
-    measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
+        accel_xout_scaled = accel_xout / 16384.0
+        accel_yout_scaled = accel_yout / 16384.0
+        accel_zout_scaled = accel_zout / 16384.0
+        measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
 
-    build_list.append( measurement ) 
+        build_list.append( measurement ) 
 
-average_log = sum(build_list) / len(build_list)  
+    average_log = sum(build_list) / len(build_list)  
+    return average_log * 1.2
 
 logging_memory = 1000
-logging_treshold = average_log * 1.2
 event_width = 5
 
 event_list = []
 
 while True:
+    logging_treshold = reset()
     accel_xout = read_word_2c(0x3b)
     accel_yout = read_word_2c(0x3d)
     accel_zout = read_word_2c(0x3f)
