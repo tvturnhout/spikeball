@@ -89,7 +89,7 @@ def reset():
         accel_zout_scaled = accel_zout / 16384.0
         measurement2 = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
 
-        build_list.append( measurement ) 
+        build_list.append( measurement2 ) 
 
     average_log = sum(build_list) / len(build_list)  
     return average_log * 1.2
