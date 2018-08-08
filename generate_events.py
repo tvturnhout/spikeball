@@ -98,9 +98,8 @@ logging_memory = 1000
 event_width = 5
 
 event_list = []
-
+logging_treshold = reset()
 while True:
-    logging_treshold = reset()
     accel_xout = read_word_2c(0x3b)
     accel_yout = read_word_2c(0x3d)
     accel_zout = read_word_2c(0x3f)
@@ -129,3 +128,4 @@ while True:
         else:
             print "no recordings, max value " + str(max_value)
         event_list[:] = []
+        logging_treshold = reset()
