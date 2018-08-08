@@ -79,7 +79,7 @@ def reset():
 # Set logging treshold:
     build_list = []
 
-    for i in range(0,1000):
+    for i in range(0,500):
         accel_xout = read_word_2c(0x3b)
         accel_yout = read_word_2c(0x3d)
         accel_zout = read_word_2c(0x3f)
@@ -87,7 +87,7 @@ def reset():
         accel_xout_scaled = accel_xout / 16384.0
         accel_yout_scaled = accel_yout / 16384.0
         accel_zout_scaled = accel_zout / 16384.0
-        measurement = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
+        measurement2 = (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
 
         build_list.append( measurement ) 
 
@@ -116,6 +116,7 @@ while True:
         max_value = ( sorted(event_list)[-1] + sorted(event_list)[-2] + sorted(event_list)[-3] ) / 3
         if max_value > logging_treshold:
             decision = raw_input("Max value: " + str(max_value) + "/Treshold: " + str(logging_treshold) + " - Rand (r) of net (n): ")
+            logging_treshold = reset()
             if 'r' in decision or 'n' in decision:
                 with open('events.txt','a') as f:
                     f.write("\n")
@@ -128,4 +129,3 @@ while True:
         else:
             print "no recordings, max value " + str(max_value)
         event_list[:] = []
-        logging_treshold = reset()
