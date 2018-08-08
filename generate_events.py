@@ -78,7 +78,7 @@ print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, acce
 # Set logging treshold:
 build_list = []
 
-for i in range(0,100):
+for i in range(0,2000):
     accel_xout = read_word_2c(0x3b)
     accel_yout = read_word_2c(0x3d)
     accel_zout = read_word_2c(0x3f)
@@ -117,9 +117,9 @@ while True:
             if decision == 'r' or 'n':
                 with open('events.txt','a') as f:
                     f.write("\n")
-                for item in event_list[max(max_index-event_width,0):min(max_index+event_width+1,len(event_list))]:
-                    f.write(str(item) + ",")
-                f.write(decision)
+                    for item in event_list[max(max_index-event_width,0):min(max_index+event_width+1,len(event_list))]:
+                        f.write(str(item) + ",")
+                    f.write(decision)
                 print "succesfully wrote event "
             else:
                 print "No (r) or (n) chosen, not saving this recording"
