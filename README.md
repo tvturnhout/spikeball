@@ -1,3 +1,3 @@
 # Getting started
 
-![](https://github.com/OakwoodAI/automagica/blob/master/images/USPresidents.gif&s=100)
+![](https://github.com/OakwoodAI/automagica/blob/master/images/USPresidents.gif){:height="700px" width="400px"}
