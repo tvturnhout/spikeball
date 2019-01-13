@@ -86,3 +86,10 @@ while True:
         print (accel_xout_scaled + accel_yout_scaled + accel_zout_scaled ) / 3
     except:
         pass
+    
+app = application.Application()
+app.start('Notepad')
+app.window(best_match="UntitledNotepad").print_control_identifiers()
+app.window(best_match="UntitledNotepad").window(best_match="Edit").WindowText()
+app['Notepad'].menu_select("File->PageSetup")
+app.window(best_match="Page Setup").window(best_match="ComboBox2").select("Tray1")
